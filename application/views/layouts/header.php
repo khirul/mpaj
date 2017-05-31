@@ -18,6 +18,8 @@
         <link rel="stylesheet" href="<?php echo base_url().'assets/css/material-dashboard.css' ?>" />
         <link rel="stylesheet" href="<?php echo base_url().'assets/css/custom.css' ?>" />
         <script src="<?php echo base_url().'assets/js/jquery-3.1.0.min.js'?>" type="text/javascript"></script>
+        
+        <script src="//cdn.ckeditor.com/4.7.0/basic/ckeditor.js"></script>
     </head>
     <body>
         <!--[if lt IE 8]>
