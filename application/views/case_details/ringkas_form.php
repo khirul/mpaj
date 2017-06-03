@@ -1,7 +1,7 @@
 <h3>Keterangan Ringkas</h3>
 <hr />
 
-<form action="<?php echo base_url('case_details/ringkas_process?account=' . $case->ind_akaun) ?>" method="post" > 
+<form action="<?php echo base_url('case_details/ringkas_process?account=' . $case->ind_akaun . '&case_type=kr') ?>" method="post" enctype="multipart/form-data" > 
 	<div class="form-group">
 		<textarea name="content" id="ringkas" cols="100" rows="10"><?php if ($kr->num_rows() > 0): ?><?php echo $content = $kr->row()->kr_content?><?php endif ?></textarea>
 	</div><!-- /.form-group -->
