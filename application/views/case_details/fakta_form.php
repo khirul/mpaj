@@ -1,9 +1,9 @@
-<h3>Keterangan Ringkas</h3>
+<h3>Fakta Kes</h3>
 <hr />
 
-<form action="<?php echo base_url('case_details/ringkas_process?account=' . $case->ind_akaun . '&case_type=kr') ?>" method="post" enctype="multipart/form-data" > 
+<form action="<?php echo base_url('case_details/fakta_process?account=' . $case->ind_akaun . '&case_type=fk') ?>" method="post" enctype="multipart/form-data" > 
 	<div class="form-group">
-		<textarea name="content" id="ringkas" cols="100" rows="10"><?php if ($kr->num_rows() > 0): ?><?php echo $content = $kr->row()->kr_content?><?php endif ?></textarea>
+		<textarea name="content" id="fakta" cols="100" rows="10"><?php if ($fk->num_rows() > 0): ?><?php echo $content = $fk->row()->fk_content?><?php endif ?></textarea>
 	</div><!-- /.form-group -->
 		
 	<button id="addpic" class="btn btn-danger">Tambah gambar</button>
@@ -25,7 +25,7 @@
 
 <?php if ($pic->num_rows() > 0): ?>
 	<div class="row">
-		<h3>Gambar yang telah di muat naik</h3>
+	<h3>Gambar yang telah di muat naik</h3>
 		<?php foreach ($pic->result() as $p): ?>
 			
 			<div class="col-sm-3">
@@ -45,7 +45,7 @@
 
 <script type="text/javascript">
 
-CKEDITOR.replace( 'ringkas' );
+CKEDITOR.replace( 'fakta' );
 
 $( document ).ready(function() {
 	$(document).on('click', 'button#addpic', function(e){

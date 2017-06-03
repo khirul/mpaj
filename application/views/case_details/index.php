@@ -92,17 +92,17 @@ KESALAHAN : <?php echo $case->ind_kslah ?>
 				<td><a href="<?php echo base_url().'case_details/ringkas_form?account='. $case->ind_akaun ?>" class="btn btn-default btn-sm <?php echo $disable ?>">Kemaskini</a></td>
 				<td class= <?php echo $krstatus ?>><?php echo $kr->kr_status ?></td>
 			</tr>	
-			<!-- <tr>
+			<tr>
 				<td>Fakta Kes</td>
-				<td><a href="" class="btn btn-default btn-sm">Kemaskini</a></td>
-				<td class= <?php echo $status ?>>Tidak lengkap</td>
+				<td><a href="<?php echo base_url().'case_details/fakta_form?account='. $case->ind_akaun ?>" class="btn btn-default btn-sm <?php echo $disable ?>">Kemaskini</a></td>
+				<td class= <?php echo $krstatus ?>><?php echo $kr->kr_status ?></td>
 			</tr>	
 			<tr>
 				<td>Diari Siasatan</td>
-				<td><a href="" class="btn btn-default btn-sm">Kemaskini</a></td>
-				<td class= <?php echo $status ?>>Tidak lengkap</td>
+				<td><a href="<?php echo base_url().'case_details/diari_form?account='. $case->ind_akaun ?>" class="btn btn-default btn-sm <?php echo $disable ?>">Kemaskini</a></td>
+				<td class= <?php echo $krstatus ?>><?php echo $kr->kr_status ?></td>
 			</tr>	
-			<tr>
+			<!--<tr>
 				<td>Gambar-Gambar</td>
 				<td><a href="" class="btn btn-default btn-sm">Kemaskini</a></td>
 				<td class= <?php echo $status ?>>Tidak lengkap</td>
