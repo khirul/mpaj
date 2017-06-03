@@ -369,9 +369,11 @@ class Case_details extends CI_Controller {
 		$mysql = $this->load->database('default', true);
 		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
 		$kr = $mysql->where('case_id', $case->row()->case_id)->get('kr');
+		$pic = $mysql->where('case_id', $case->row()->case_id)->get('pics');
 		$data = [
 			'case' => $case->row(),
 			'kr' => $kr,
+			'pic' => $pic,
 			'content' => 'case_details/ringkas_form'
 		];
 		$this->load->view('layouts/admin', $data, FALSE);
