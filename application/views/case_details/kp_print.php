@@ -1,4 +1,4 @@
-<span class="mahkamah"><?php echo ucwords($saman->mahkamah) ?></span>
+<span class="mahkamah"><?php echo strtoupper($saman->mahkamah) ?></span>
 
 
 
@@ -11,9 +11,9 @@
 <!-- <?php $salah = strtolower($case->ind_kslah) ?> -->
 
 
-<span class="pesalah"><?php echo ucwords($nama) ?></span>
-<span class="ic"><?php echo ucwords($case->ind_plgid) ?></span>
-<span class="alamat"><?php echo ucwords($add1),", ", ucwords($add2),", ", ucwords($add3),", ", ucwords($add4),", ", ucwords($add5) ?></span>
+<span class="pesalah"><?php echo ($kp->kp_nama) ?></span>
+<span class="ic"><?php echo ucwords($kp->kp_psalah_id) ?></span>
+<span class="alamat"><?php echo ($kp->kp_add1),", ", ($kp->kp_add2),", ", ($kp->kp_add3),", ", ($kp->kp_add4),", ", ($kp->kp_add5) ?></span>
 
 <span class="kesalahan"><div class="lebar"><?php echo ($kp->kp_ind_kslah) ?></div></span>
 
@@ -41,6 +41,7 @@ function myFunction() {
 	top: 15px;
 	left: 300px;
 	width:900px;
+	font-family: arial;
 
 	font-size: 12px;
 }
@@ -49,7 +50,7 @@ function myFunction() {
 	position: fixed;
 	top: 92px;
 	left: 185px;
-
+	font-family: arial;
 	font-size: 11px;
 }
 
@@ -57,7 +58,7 @@ function myFunction() {
 	position: fixed;
 	top: 108px;
 	left: 185px;
-
+	font-family: arial;
 	font-size: 11px;
 }
 
@@ -65,7 +66,7 @@ function myFunction() {
 	position: fixed;
 	top: 130px;
 	left: 185px;
-
+	font-family: arial;
 	font-size: 11px;
 }
 
@@ -73,7 +74,7 @@ function myFunction() {
 	position: fixed;
 	top: 475px;
 	left: 242px;
-
+	font-family: arial;
 	font-size: 11px;
 }
 
@@ -81,7 +82,7 @@ function myFunction() {
 	position: fixed;
 	top: 515px;
 	left: 242px;
-
+	font-family: arial;
 	font-size: 11px;
 }
 
@@ -89,7 +90,7 @@ function myFunction() {
 	position: fixed;
 	top: 720px;
 	left: 310px;
-
+	font-family: arial;
 	font-size: 11px;
 }
 
@@ -99,7 +100,7 @@ function myFunction() {
 	position: fixed;
 	top: 190px;
 	left: 120px;
-
+	font-family: arial;
 	font-size: 10px;
 }
 

@@ -81,7 +81,8 @@ KESALAHAN : <?php echo $case->ind_kslah ?>
 			<tr>
 				<td>Pengaduan</td>
 				<td>
-				<a href="<?php echo base_url().'case_details/aduan_form?account='. $case->ind_akaun ?>" id="sbutton" class="btn btn-default btn-sm <?php echo $kpdisable ?>">cetak</a>
+				<a href="<?php echo base_url().'case_details/aduan_form?account='. $case->ind_akaun ?>" class="btn btn-default btn-sm <?php echo $kpdisable ?>">Kemaskini</a>
+				<a href="<?php echo base_url().'case_details/aduan_print?account='. $case->ind_akaun ?>" id="sbutton" class="btn btn-default btn-sm <?php echo $kpdisable ?>">cetak</a>
 				</td>
 				</td>
 				<td class= <?php echo $kpstatus ?>><?php echo $kp->kp_status ?></td>

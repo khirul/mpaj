@@ -224,6 +224,13 @@ class Case_details extends CI_Controller {
 				'user_id' => $this->session->userdata('current_user')->user_id,
 				'kp_ind_kslah' => $this->input->post('kp_ind_kslah'),
 				'kp_pegawai' => $this->input->post('kp_pegawai'),
+				'kp_add1' => $this->input->post('kp_add1'),
+				'kp_add2' => $this->input->post('kp_add2'),
+				'kp_add3' => $this->input->post('kp_add3'),
+				'kp_add4' => $this->input->post('kp_add4'),
+				'kp_add5' => $this->input->post('kp_add5'),
+				'kp_psalah_id' => $this->input->post('kp_psalah_id'),
+				'kp_nama' => $this->input->post('kp_nama'),
 				// 'tarikh_saman' => $this->input->post('tarikh_saman'),
 				'kp_status' => $status
  			];
@@ -253,21 +260,109 @@ class Case_details extends CI_Controller {
 		$this->load->view('case_details/kp_print', $data, FALSE);
 	}
 
+	public function aduan_print(){
+		$mysql = $this->load->database('default', true);	
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+		//$saman = $mysql->where('case_id', $case->row()->case_id)->get('saman');
+		//$kp = $mysql->where('case_id', $case->row()->case_id)->get('kp');
+		$adu = $mysql->where('case_id', $case->row()->case_id)->get('adu');
+		//$role = $mysql->where('role_name', $this->session->userdata('current_user')->role)->get('roles');
+
+		$data = [
+		//	'saman' 	=> $saman->row(),
+			'case' 		=> $case->row(),
+			'adu' 		=> $adu->row(),
+		//	'role' 		=> $role->row(),
+			
+		];
+		$this->load->view('case_details/aduan_print', $data, FALSE);
+	}
+
 	public function aduan_form(){
+		$this->load->library('form_validation');
+
 		$mysql = $this->load->database('default', true);	
 		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
 		$saman = $mysql->where('case_id', $case->row()->case_id)->get('saman');
-		$kp = $mysql->where('case_id', $case->row()->case_id)->get('kp');
+		$check = $mysql->where('case_id', $case->row()->case_id)->get('adu');
 		$role = $mysql->where('role_name', $this->session->userdata('current_user')->role)->get('roles');
+ 			if ($check->num_rows() > 0) {
+ 				$exist = $check;
+ 				$adu = $check->row();
+ 			}else{
+ 				$adu = null;
+ 				$exist =  ["num_rows"];
+ 			}
 
 		$data = [
-			'saman' 	=> $saman->row(),
-			'case' 		=> $case->row(),
-			'kp' 		=> $kp->row(),
-			'role' 		=> $role->row(),
-			
+			'saman' => $saman->row(),
+			'case' => $case->row(),
+			'adu' => $adu,
+			'check' => $check,
+			'role' => $role->row(),
+			'content' => 'case_details/aduan_form'
 		];
-		$this->load->view('case_details/aduan_form', $data, FALSE);
+		$this->load->view('layouts/admin', $data, FALSE);
+	}
+
+	public function aduan_process(){
+
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('adu_kslah', 'kesalahan', 'trim|required', [
+			'required' => 'Ruang kesalahan wajib diisi'
+		]);
+		$this->form_validation->set_rules('adu_pegawai', 'pegawai', 'trim|required', [
+			'required' => 'Ruang nama pegawai wajib diisi'
+		]);
+		// $this->form_validation->set_rules('tarikh_hadir', 'Tarikh hadir', 'trim|required', [
+		// 	'required' => 'Tarikh hadir wajib diisi'
+		// ]);
+		// $this->form_validation->set_rules('tarikh_saman', 'Tarikh saman', 'trim|required', [
+		// 	'required' => 'Tarikh saman dikeluarkan wajib diisi'
+		// ]);
+	
+		if ($this->form_validation->run()==FALSE) {
+			$this->aduan_form();
+		}else{
+
+			$mysql = $this->load->database('default', true);	
+			$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+			
+			
+
+			if ($this->input->post('submit')) {
+				$status = 'lengkap';
+			}else{
+				$status = 'draf';
+			}
+
+			$object = [
+				'case_id' => $case->row()->case_id,
+				'user_id' => $this->session->userdata('current_user')->user_id,
+				'adu_kslah' => $this->input->post('adu_kslah'),
+				'adu_pegawai' => $this->input->post('adu_pegawai'),
+				'adu_add1' => $this->input->post('adu_add1'),
+				'adu_add2' => $this->input->post('adu_add2'),
+				'adu_add3' => $this->input->post('adu_add3'),
+				'adu_add4' => $this->input->post('adu_add4'),
+				'adu_add5' => $this->input->post('adu_add5'),
+				'adu_psalah_id' => $this->input->post('adu_psalah_id'),
+				'adu_psalah_nama' => $this->input->post('adu_psalah_nama'),
+				'adu_jab' => $this->input->post('adu_jab'),
+				'adu_jaw' => $this->input->post('adu_jaw'),
+				'adu_amaun' => $this->input->post('adu_amaun'),
+				// 'tarikh_saman' => $this->input->post('tarikh_saman'),
+				'adu_status' => $status
+ 			];
+
+ 			$check = $mysql->where('case_id', $case->row()->case_id)->get('adu');
+ 			if ($check->num_rows() > 0) {
+ 				$mysql->update('adu', $object);
+ 			}else{
+ 				$mysql->insert('adu', $object);
+ 			}
+ 			$this->index();
+		}
 	}
 
 	public function ringkas_form(){
@@ -281,6 +376,7 @@ class Case_details extends CI_Controller {
 		];
 		$this->load->view('layouts/admin', $data, FALSE);
 	}
+	
 	public function ringkas_process(){
 		$mysql = $this->load->database('default', true);
 		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
@@ -310,23 +406,18 @@ class Case_details extends CI_Controller {
 	public function pic_form(){
 		$mysql = $this->load->database('default', true);		
 		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+		$pic = $mysql->where('case_id', $case->row()->case_id)->get('pics');
+		
 		$data = [
 			'case' => $case->row(),
+			'pic' => $pic,
 			'content' => 'case_details/pic_form'
 		];
 
 		$this->load->view('layouts/admin', $data, FALSE);
 	}
 
-	private $error;
-    private $success;
-	private function handle_error($err) {
-        $this->error .= $err . "\r\n";
-    }
 	
-    private function handle_success($succ) {
-        $this->success .= $succ . "\r\n";
-    }
 	public function pic_process(){
 		$mysql = $this->load->database('default', true);		
 		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
@@ -348,9 +439,18 @@ class Case_details extends CI_Controller {
             }
             else
             {
-              echo 'success';
+            	$data = $this->upload->data();
+            	$object = [
+            		'user_id' => $this->session->userdata('current_user')->user_id,
+            		'case_id' => $case->row()->case_id,
+            		'pic_name' => $data['file_name'],
+            	];
+              	$mysql->insert('pics', $object);
+
+
             }
-        }			
+        }
+        $this->pic_form();			
 	}
 
 	private function set_upload_options()
@@ -359,6 +459,7 @@ class Case_details extends CI_Controller {
         $config = array();
         $config['upload_path'] = './assets/uploads/';
         $config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size'] = 1000;
         $config['overwrite']     = FALSE;
         return $config;
     }
@@ -367,4 +468,6 @@ class Case_details extends CI_Controller {
 
 /* End of file Case_details.php */
 /* Location: ./application/controllers/Case_details.php */
+
+
 
