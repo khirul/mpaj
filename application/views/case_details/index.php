@@ -1,4 +1,15 @@
 
+<?php if ($this->session->flashdata('up_error')): ?>
+<?php $err = $this->session->flashdata('up_error') ?>
+
+	<div class="alert alert-danger">
+		<strong>
+			<?php echo count($err) . ' fail gagal di muatnaik :' ?>
+			<p>&nbsp;&nbsp;&nbsp;<?php echo '	- Melebihi saiz yang dibenarkan' ?></p>
+		</strong>
+	</div><!-- /.alert alert-danger -->
+	
+<?php endif ?>
 
 NAMA : 
 <?php echo $case->ind_pnama ?>
@@ -102,37 +113,37 @@ KESALAHAN : <?php echo $case->ind_kslah ?>
 				<td><a href="<?php echo base_url().'case_details/diari_form?account='. $case->ind_akaun ?>" class="btn btn-default btn-sm <?php echo $disable ?>">Kemaskini</a></td>
 				<td class= <?php echo $krstatus ?>><?php echo $kr->kr_status ?></td>
 			</tr>	
-			<!--<tr>
+			<tr>
 				<td>Gambar-Gambar</td>
-				<td><a href="" class="btn btn-default btn-sm">Kemaskini</a></td>
-				<td class= <?php echo $status ?>>Tidak lengkap</td>
+				<td><a href="<?php echo base_url().'case_details/gambar_form?account='. $case->ind_akaun ?>" class="btn btn-default btn-sm <?php echo $disable ?>">Kemaskini</a></td>
+				<td class= <?php echo $krstatus ?>><?php echo $kr->kr_status ?></td>
 			</tr>		
 			<tr>
 				<td>Rajah Kasar Lokasi</td>
-				<td><a href="" class="btn btn-default btn-sm">Kemaskini</a></td>
-				<td class= <?php echo $status ?>>Tidak lengkap</td>
+				<td><a href="<?php echo base_url().'case_details/rajah_form?account='. $case->ind_akaun ?>" class="btn btn-default btn-sm <?php echo $disable ?>">Kemaskini</a></td>
+				<td class= <?php echo $krstatus ?>><?php echo $kr->kr_status ?></td>
 			</tr>	
 			<tr>
 				<td>Carian SSM atau Pejabat Tanah atau JPN atau Insolvensi atau Cukai Taksiran</td>
-				<td><a href="" class="btn btn-default btn-sm">Kemaskini</a></td>
+				<td><a href="<?php echo base_url().'case_details/ssm_form?account='. $case->ind_akaun ?>" class="btn btn-default btn-sm <?php echo $disable ?>">Kemaskini</a>
 				<td class= <?php echo $status ?>>Tidak lengkap</td>
 			</tr>	
 			<tr>
 				<td>Carian JPJ</td>
-				<td><a href="" class="btn btn-default btn-sm">Kemaskini</a></td>
+				<td><a href="<?php echo base_url().'case_details/jpj_form?account='. $case->ind_akaun ?>" class="btn btn-default btn-sm <?php echo $disable ?>">Kemaskini</a></td>
 				<td class= <?php echo $status ?>>Tidak lengkap</td>
 			</tr>	
 			<tr>
 				<td>laporan Tugasan Pegawai Serbuan (RO)</td>
-				<td><a href="" class="btn btn-default btn-sm">Kemaskini</a></td>
+				<td><a href="<?php echo base_url().'case_details/ro_form?account='. $case->ind_akaun ?>" class="btn btn-default btn-sm <?php echo $disable ?>">Kemaskini</a></td>
 				<td class= <?php echo $status ?>>Tidak lengkap</td>
 			</tr>	
 			<tr>
 				<td>Rakaman Percakapan Saksi</td>
-				<td><a href="" class="btn btn-default btn-sm">Kemaskini</a></td>
+				<td><a href="<?php echo base_url().'case_details/rps_form?account='. $case->ind_akaun ?>" class="btn btn-default btn-sm <?php echo $disable ?>">Kemaskini</a></td>
 				<td class= <?php echo $status ?>>Tidak lengkap</td>
 			</tr>
-			<tr>
+			<!--<tr>
 				<td>Borang Inventori Sitaan</td>
 				<td><a href="" class="btn btn-default btn-sm">Kemaskini</a></td>
 				<td class= <?php echo $status ?>>Tidak lengkap</td>
@@ -141,13 +152,13 @@ KESALAHAN : <?php echo $case->ind_kslah ?>
 				<td>Borang Serahan Barang Kes RO kepada IO</td>
 				<td><a href="" class="btn btn-default btn-sm">Kemaskini</a></td>
 				<td class= <?php echo $status ?>>Tidak lengkap</td>
-			</tr>	
+			</tr>-->	
 			<tr>
 				<td>Notis Peringatan</td>
-				<td><a href="" class="btn btn-default btn-sm">Kemaskini</a></td>
+				<td><a href="<?php echo base_url().'case_details/np_form?account='. $case->ind_akaun ?>" class="btn btn-default btn-sm <?php echo $disable ?>">Kemaskini</a></td>
 				<td class= <?php echo $status ?>>Tidak lengkap</td>
 			</tr>	
-			<tr>
+			<!--<tr>
 				<td>Kompaun</td>
 				<td><a href="" class="btn btn-default btn-sm">Kemaskini</a></td>
 				<td class= <?php echo $status ?>>Tidak lengkap</td>

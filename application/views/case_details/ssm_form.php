@@ -1,9 +1,9 @@
-<h3>Diari Siasatan</h3>
+<h3>Carian SSM/Pejabat Tanah/JPN/Insolvensi/Cukai Taksiran</h3>
 <hr />
 
-<form action="<?php echo base_url('case_details/diari_process?account=' . $case->ind_akaun . '&case_type=ds') ?>" method="post" enctype="multipart/form-data" > 
+<form action="<?php echo base_url('case_details/ssm_process?account=' . $case->ind_akaun . '&case_type=ssm') ?>" method="post" enctype="multipart/form-data" > 
 	<div class="form-group">
-		<textarea name="content" id="diari" cols="100" rows="10"><?php if ($ds->num_rows() > 0): ?><?php echo $content = $ds->row()->ds_content?><?php endif ?></textarea>
+		<textarea name="content" id="ssm" cols="100" rows="10"><?php if ($ssm->num_rows() > 0): ?><?php echo $content = $ssm->row()->ssm_content?><?php endif ?></textarea>
 	</div><!-- /.form-group -->
 		
 	<button id="addpic" class="btn btn-danger">Tambah gambar</button>
@@ -46,7 +46,7 @@
 
 <script type="text/javascript">
 
-CKEDITOR.replace( 'diari' );
+CKEDITOR.replace( 'ssm' );
 
 $( document ).ready(function() {
 	$(document).on('click', 'button#addpic', function(e){

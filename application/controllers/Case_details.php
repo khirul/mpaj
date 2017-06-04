@@ -545,7 +545,7 @@ class Case_details extends CI_Controller {
 			'case_id' => $case->row()->case_id,
 		];
 
-		$check = $mysql->where('case_id', $case->row()->case_id)->get('fk');
+		$check = $mysql->where('case_id', $case->row()->case_id)->get('ds');
 		if ($check->num_rows() > 0) {
 			$mysql->update('ds', $object);
 		}else{
@@ -569,6 +569,576 @@ class Case_details extends CI_Controller {
 	            if($this->upload->do_upload() == False)
 	            {
 	                echo 'error';
+	            }
+	            else
+	            {
+	            	$data = $this->upload->data();
+	            	$object1 = [
+	            		'user_id' => $this->session->userdata('current_user')->user_id,
+	            		'case_id' => $case->row()->case_id,
+	            		'pic_name' => $data['file_name'],
+	            		'type' => $this->input->get('case_type')
+	            	];
+	              	$mysql->insert('pics', $object1);
+
+
+	            }
+	        }
+        }
+
+		$this->index();	
+	}
+
+	public function gambar_form(){
+		$mysql = $this->load->database('default', true);
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+		$gm = $mysql->where('case_id', $case->row()->case_id)->get('gm');
+
+		$mysql->where('type', 'gm');
+		$pic = $mysql->where('case_id', $case->row()->case_id)->get('pics');
+		$data = [
+			'case' => $case->row(),
+			'gm' => $gm,
+			'pic' => $pic,
+			'content' => 'case_details/gambar_form'
+		];
+		$this->load->view('layouts/admin', $data, FALSE);
+	}
+	
+	public function gambar_process(){
+
+		$mysql = $this->load->database('default', true);
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+
+		if ($this->input->post('submit')) {
+			$status = 'lengkap';
+		}else{
+			$status = 'draf';
+		}
+
+		$object = [
+			'gm_content' => $this->input->post('content'),
+			'gm_status' => $status,
+			'user_id' => $this->session->userdata('current_user')->user_id,
+			'case_id' => $case->row()->case_id,
+		];
+
+		$check = $mysql->where('case_id', $case->row()->case_id)->get('gm');
+		if ($check->num_rows() > 0) {
+			$mysql->update('gm', $object);
+		}else{
+			$mysql->insert('gm', $object);
+		}
+
+		if ($_FILES != null) {
+		
+		
+			$this->load->library('upload');
+	        $files = $_FILES;
+	        $count = count($_FILES['userfile']['name']);
+	        for($i=0; $i<$count; $i++)
+	        {
+	            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+	            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+	            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+	            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+	            $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
+	            $this->upload->initialize($this->set_upload_options());
+	            if($this->upload->do_upload() == False)
+	            {
+	                echo 'error';
+	            }
+	            else
+	            {
+	            	$data = $this->upload->data();
+	            	$object1 = [
+	            		'user_id' => $this->session->userdata('current_user')->user_id,
+	            		'case_id' => $case->row()->case_id,
+	            		'pic_name' => $data['file_name'],
+	            		'type' => $this->input->get('case_type')
+	            	];
+	              	$mysql->insert('pics', $object1);
+
+
+	            }
+	        }
+        }
+
+		$this->index();	
+	}
+
+	public function rajah_form(){
+		$mysql = $this->load->database('default', true);
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+		$rk = $mysql->where('case_id', $case->row()->case_id)->get('rk');
+
+		$mysql->where('type', 'rk');
+		$pic = $mysql->where('case_id', $case->row()->case_id)->get('pics');
+		$data = [
+			'case' => $case->row(),
+			'rk' => $rk,
+			'pic' => $pic,
+			'content' => 'case_details/rajah_form'
+		];
+		$this->load->view('layouts/admin', $data, FALSE);
+	}
+	
+	public function rajah_process(){
+
+		$mysql = $this->load->database('default', true);
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+
+		if ($this->input->post('submit')) {
+			$status = 'lengkap';
+		}else{
+			$status = 'draf';
+		}
+
+		$object = [
+			'rk_content' => $this->input->post('content'),
+			'rk_status' => $status,
+			'user_id' => $this->session->userdata('current_user')->user_id,
+			'case_id' => $case->row()->case_id,
+		];
+
+		$check = $mysql->where('case_id', $case->row()->case_id)->get('rk');
+		if ($check->num_rows() > 0) {
+			$mysql->update('rk', $object);
+		}else{
+			$mysql->insert('rk', $object);
+		}
+
+		if ($_FILES != null) {
+		
+		
+			$this->load->library('upload');
+	        $files = $_FILES;
+	        $count = count($_FILES['userfile']['name']);
+	        for($i=0; $i<$count; $i++)
+	        {
+	            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+	            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+	            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+	            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+	            $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
+	            $this->upload->initialize($this->set_upload_options());
+	            if($this->upload->do_upload() == False)
+	            {	
+
+            		$error[$i] = array('error' => 'Fail melebihi saiz yang dibenarkan');
+            		
+            		$this->session->set_flashdata('up_error', $error);
+            		
+	            }
+	            else
+	            {
+	            	$data = $this->upload->data();
+	            	$object1 = [
+	            		'user_id' => $this->session->userdata('current_user')->user_id,
+	            		'case_id' => $case->row()->case_id,
+	            		'pic_name' => $data['file_name'],
+	            		'type' => $this->input->get('case_type')
+	            	];
+	              	$mysql->insert('pics', $object1);
+
+
+	            }
+	        }
+        }
+
+		$this->index();	
+	}
+
+	public function ssm_form(){
+		$mysql = $this->load->database('default', true);
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+		$ssm = $mysql->where('case_id', $case->row()->case_id)->get('ssm');
+
+		$mysql->where('type', 'ssm');
+		$pic = $mysql->where('case_id', $case->row()->case_id)->get('pics');
+		$data = [
+			'case' => $case->row(),
+			'ssm' => $ssm,
+			'pic' => $pic,
+			'content' => 'case_details/ssm_form'
+		];
+		$this->load->view('layouts/admin', $data, FALSE);
+	}
+	
+	public function ssm_process(){
+
+		$mysql = $this->load->database('default', true);
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+
+		if ($this->input->post('submit')) {
+			$status = 'lengkap';
+		}else{
+			$status = 'draf';
+		}
+
+		$object = [
+			'ssm_content' => $this->input->post('content'),
+			'ssm_status' => $status,
+			'user_id' => $this->session->userdata('current_user')->user_id,
+			'case_id' => $case->row()->case_id,
+		];
+
+		$check = $mysql->where('case_id', $case->row()->case_id)->get('ssm');
+		if ($check->num_rows() > 0) {
+			$mysql->update('ssm', $object);
+		}else{
+			$mysql->insert('ssm', $object);
+		}
+
+		if ($_FILES != null) {
+		
+		
+			$this->load->library('upload');
+	        $files = $_FILES;
+	        $count = count($_FILES['userfile']['name']);
+	        for($i=0; $i<$count; $i++)
+	        {
+	            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+	            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+	            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+	            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+	            $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
+	            $this->upload->initialize($this->set_upload_options());
+	            if($this->upload->do_upload() == False)
+	            {	
+
+            		$error[$i] = array('error' => 'Fail melebihi saiz yang dibenarkan');
+            		
+            		$this->session->set_flashdata('up_error', $error);
+            		
+	            }
+	            else
+	            {
+	            	$data = $this->upload->data();
+	            	$object1 = [
+	            		'user_id' => $this->session->userdata('current_user')->user_id,
+	            		'case_id' => $case->row()->case_id,
+	            		'pic_name' => $data['file_name'],
+	            		'type' => $this->input->get('case_type')
+	            	];
+	              	$mysql->insert('pics', $object1);
+
+
+	            }
+	        }
+        }
+
+		$this->index();	
+	}
+
+	public function jpj_form(){
+		$mysql = $this->load->database('default', true);
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+		$jpj = $mysql->where('case_id', $case->row()->case_id)->get('jpj');
+
+		$mysql->where('type', 'jpj');
+		$pic = $mysql->where('case_id', $case->row()->case_id)->get('pics');
+		$data = [
+			'case' => $case->row(),
+			'jpj' => $jpj,
+			'pic' => $pic,
+			'content' => 'case_details/jpj_form'
+		];
+		$this->load->view('layouts/admin', $data, FALSE);
+	}
+	
+	public function jpj_process(){
+
+		$mysql = $this->load->database('default', true);
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+
+		if ($this->input->post('submit')) {
+			$status = 'lengkap';
+		}else{
+			$status = 'draf';
+		}
+
+		$object = [
+			'jpj_content' => $this->input->post('content'),
+			'jpj_status' => $status,
+			'user_id' => $this->session->userdata('current_user')->user_id,
+			'case_id' => $case->row()->case_id,
+		];
+
+		$check = $mysql->where('case_id', $case->row()->case_id)->get('jpj');
+		if ($check->num_rows() > 0) {
+			$mysql->update('jpj', $object);
+		}else{
+			$mysql->insert('jpj', $object);
+		}
+
+		if ($_FILES != null) {
+		
+		
+			$this->load->library('upload');
+	        $files = $_FILES;
+	        $count = count($_FILES['userfile']['name']);
+	        for($i=0; $i<$count; $i++)
+	        {
+	            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+	            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+	            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+	            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+	            $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
+	            $this->upload->initialize($this->set_upload_options());
+	            if($this->upload->do_upload() == False)
+	            {	
+
+            		$error[$i] = array('error' => 'Fail melebihi saiz yang dibenarkan');
+            		
+            		$this->session->set_flashdata('up_error', $error);
+            		
+	            }
+	            else
+	            {
+	            	$data = $this->upload->data();
+	            	$object1 = [
+	            		'user_id' => $this->session->userdata('current_user')->user_id,
+	            		'case_id' => $case->row()->case_id,
+	            		'pic_name' => $data['file_name'],
+	            		'type' => $this->input->get('case_type')
+	            	];
+	              	$mysql->insert('pics', $object1);
+
+
+	            }
+	        }
+        }
+
+		$this->index();	
+	}
+
+	public function ro_form(){
+		$mysql = $this->load->database('default', true);
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+		$ro = $mysql->where('case_id', $case->row()->case_id)->get('ro');
+
+		$mysql->where('type', 'ro');
+		$pic = $mysql->where('case_id', $case->row()->case_id)->get('pics');
+		$data = [
+			'case' => $case->row(),
+			'ro' => $ro,
+			'pic' => $pic,
+			'content' => 'case_details/ro_form'
+		];
+		$this->load->view('layouts/admin', $data, FALSE);
+	}
+	
+	public function ro_process(){
+
+		$mysql = $this->load->database('default', true);
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+
+		if ($this->input->post('submit')) {
+			$status = 'lengkap';
+		}else{
+			$status = 'draf';
+		}
+
+		$object = [
+			'ro_content' => $this->input->post('content'),
+			'ro_status' => $status,
+			'user_id' => $this->session->userdata('current_user')->user_id,
+			'case_id' => $case->row()->case_id,
+		];
+
+		$check = $mysql->where('case_id', $case->row()->case_id)->get('ro');
+		if ($check->num_rows() > 0) {
+			$mysql->update('ro', $object);
+		}else{
+			$mysql->insert('ro', $object);
+		}
+
+		if ($_FILES != null) {
+		
+		
+			$this->load->library('upload');
+	        $files = $_FILES;
+	        $count = count($_FILES['userfile']['name']);
+	        for($i=0; $i<$count; $i++)
+	        {
+	            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+	            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+	            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+	            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+	            $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
+	            $this->upload->initialize($this->set_upload_options());
+	            if($this->upload->do_upload() == False)
+	            {	
+
+            		$error[$i] = array('error' => 'Fail melebihi saiz yang dibenarkan');
+            		
+            		$this->session->set_flashdata('up_error', $error);
+            		
+	            }
+	            else
+	            {
+	            	$data = $this->upload->data();
+	            	$object1 = [
+	            		'user_id' => $this->session->userdata('current_user')->user_id,
+	            		'case_id' => $case->row()->case_id,
+	            		'pic_name' => $data['file_name'],
+	            		'type' => $this->input->get('case_type')
+	            	];
+	              	$mysql->insert('pics', $object1);
+
+
+	            }
+	        }
+        }
+
+		$this->index();	
+	}
+
+	public function rps_form(){
+		$mysql = $this->load->database('default', true);
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+		$rps = $mysql->where('case_id', $case->row()->case_id)->get('rps');
+
+		$mysql->where('type', 'rps');
+		$pic = $mysql->where('case_id', $case->row()->case_id)->get('pics');
+		$data = [
+			'case' => $case->row(),
+			'rps' => $rps,
+			'pic' => $pic,
+			'content' => 'case_details/rps_form'
+		];
+		$this->load->view('layouts/admin', $data, FALSE);
+	}
+	
+	public function rps_process(){
+
+		$mysql = $this->load->database('default', true);
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+
+		if ($this->input->post('submit')) {
+			$status = 'lengkap';
+		}else{
+			$status = 'draf';
+		}
+
+		$object = [
+			'rps_content' => $this->input->post('content'),
+			'rps_status' => $status,
+			'user_id' => $this->session->userdata('current_user')->user_id,
+			'case_id' => $case->row()->case_id,
+		];
+
+		$check = $mysql->where('case_id', $case->row()->case_id)->get('rps');
+		if ($check->num_rows() > 0) {
+			$mysql->update('rps', $object);
+		}else{
+			$mysql->insert('rps', $object);
+		}
+
+		if ($_FILES != null) {
+		
+		
+			$this->load->library('upload');
+	        $files = $_FILES;
+	        $count = count($_FILES['userfile']['name']);
+	        for($i=0; $i<$count; $i++)
+	        {
+	            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+	            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+	            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+	            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+	            $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
+	            $this->upload->initialize($this->set_upload_options());
+	            if($this->upload->do_upload() == False)
+	            {	
+
+            		$error[$i] = array('error' => 'Fail melebihi saiz yang dibenarkan');
+            		
+            		$this->session->set_flashdata('up_error', $error);
+            		
+	            }
+	            else
+	            {
+	            	$data = $this->upload->data();
+	            	$object1 = [
+	            		'user_id' => $this->session->userdata('current_user')->user_id,
+	            		'case_id' => $case->row()->case_id,
+	            		'pic_name' => $data['file_name'],
+	            		'type' => $this->input->get('case_type')
+	            	];
+	              	$mysql->insert('pics', $object1);
+
+
+	            }
+	        }
+        }
+
+		$this->index();	
+	}
+
+	public function np_form(){
+		$mysql = $this->load->database('default', true);
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+		$np = $mysql->where('case_id', $case->row()->case_id)->get('np');
+
+		$mysql->where('type', 'np');
+		$pic = $mysql->where('case_id', $case->row()->case_id)->get('pics');
+		$data = [
+			'case' => $case->row(),
+			'np' => $np,
+			'pic' => $pic,
+			'content' => 'case_details/np_form'
+		];
+		$this->load->view('layouts/admin', $data, FALSE);
+	}
+	
+	public function np_process(){
+
+		$mysql = $this->load->database('default', true);
+		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+
+		if ($this->input->post('submit')) {
+			$status = 'lengkap';
+		}else{
+			$status = 'draf';
+		}
+
+		$object = [
+			'np_content' => $this->input->post('content'),
+			'np_status' => $status,
+			'user_id' => $this->session->userdata('current_user')->user_id,
+			'case_id' => $case->row()->case_id,
+		];
+
+		$check = $mysql->where('case_id', $case->row()->case_id)->get('np');
+		if ($check->num_rows() > 0) {
+			$mysql->update('np', $object);
+		}else{
+			$mysql->insert('np', $object);
+		}
+
+		if ($_FILES != null) {
+		
+		
+			$this->load->library('upload');
+	        $files = $_FILES;
+	        $count = count($_FILES['userfile']['name']);
+	        for($i=0; $i<$count; $i++)
+	        {
+	            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+	            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+	            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+	            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+	            $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
+	            $this->upload->initialize($this->set_upload_options());
+	            if($this->upload->do_upload() == False)
+	            {	
+
+            		$error[$i] = array('error' => 'Fail melebihi saiz yang dibenarkan');
+            		
+            		$this->session->set_flashdata('up_error', $error);
+            		
 	            }
 	            else
 	            {
@@ -644,7 +1214,7 @@ class Case_details extends CI_Controller {
 
         $config = array();
         $config['upload_path'] = './assets/uploads/';
-        $config['allowed_types'] = 'gif|jpg|png';
+        $config['allowed_types'] = 'gif|jpg|png|pdf';
 		$config['max_size'] = 1000;
         $config['overwrite']     = FALSE;
         return $config;
@@ -657,11 +1227,19 @@ class Case_details extends CI_Controller {
     	$mysql = $this->load->database('default', true);
     	$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
 
-    	$mysql->where('pic_id', $this->uri->segment(3));
+    	$mysql->where('pic_id',  $this->input->get('id'));
+    	$pic = $mysql->get('pics')->row();
+    	$path = FCPATH . '/assets/uploads/' . $pic->pic_name;
+    	if (unlink($path)) {
+    		$mysql->where('pic_id',  $this->input->get('id'));
+    		$mysql->delete('pics');
+    		$this->index();
+    	}else{
+    		echo 'error';
+    	}
+    	
 
-    	$mysql->delete('pics');
-
-    	$this->index();
+    	
     
     }
 
@@ -669,6 +1247,7 @@ class Case_details extends CI_Controller {
 
 /* End of file Case_details.php */
 /* Location: ./application/controllers/Case_details.php */
+
 
 
 
