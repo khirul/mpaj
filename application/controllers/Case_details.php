@@ -61,6 +61,8 @@ class Case_details extends CI_Controller {
 			$this->index();
 		}
 
+		
+		
 		$data = [
 			
 			'content' => 'case_details/index',
@@ -365,6 +367,79 @@ class Case_details extends CI_Controller {
 		}
 	}
 
+	// public function ringkas_form(){
+	// 	$mysql = $this->load->database('default', true);
+	// 	$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+	// 	$kr = $mysql->where('case_id', $case->row()->case_id)->get('kr');
+
+	// 	$mysql->where('type', 'kr');
+	// 	$pic = $mysql->where('case_id', $case->row()->case_id)->get('pics');
+	// 	$data = [
+	// 		'case' => $case->row(),
+	// 		'kr' => $kr,
+	// 		'pic' => $pic,
+	// 		'content' => 'case_details/ringkas_form'
+	// 	];
+	// 	$this->load->view('layouts/admin', $data, FALSE);
+	// }
+	
+	// public function ringkas_process(){
+	// 	$mysql = $this->load->database('default', true);
+	// 	$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+
+	// 	if ($this->input->post('submit')) {
+	// 		$status = 'lengkap';
+	// 	}else{
+	// 		$status = 'draf';
+	// 	}
+
+	// 	$object = [
+	// 		'kr_content' => $this->input->post('content'),
+	// 		'kr_status' => $status,
+	// 		'user_id' => $this->session->userdata('current_user')->user_id,
+	// 		'case_id' => $case->row()->case_id,
+	// 	];
+
+	// 	$check = $mysql->where('case_id', $case->row()->case_id)->get('kr');
+	// 	if ($check->num_rows() > 0) {
+	// 		$mysql->update('kr', $object);
+	// 	}else{
+	// 		$mysql->insert('kr', $object);
+	// 	}
+
+	// 	$this->load->library('upload');
+ //        $files = $_FILES;
+ //        $count = count($_FILES['userfile']['name']);
+ //        for($i=0; $i<$count; $i++)
+ //        {
+ //            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+ //            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+ //            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+ //            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+ //            $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
+ //            $this->upload->initialize($this->set_upload_options());
+ //            if($this->upload->do_upload() == False)
+ //            {
+ //                echo 'error';
+ //            }
+ //            else
+ //            {
+ //            	$data = $this->upload->data();
+ //            	$object1 = [
+ //            		'user_id' => $this->session->userdata('current_user')->user_id,
+ //            		'case_id' => $case->row()->case_id,
+ //            		'pic_name' => $data['file_name'],
+ //            		'type' => $this->input->get('case_type')
+ //            	];
+ //              	$mysql->insert('pics', $object1);
+
+
+ //            }
+ //        }
+
+	// 	$this->index();	
+	// }
+
 	public function ringkas_form(){
 		$mysql = $this->load->database('default', true);
 		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
@@ -382,6 +457,7 @@ class Case_details extends CI_Controller {
 	}
 	
 	public function ringkas_process(){
+
 		$mysql = $this->load->database('default', true);
 		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
 
@@ -405,38 +481,115 @@ class Case_details extends CI_Controller {
 			$mysql->insert('kr', $object);
 		}
 
-		$this->load->library('upload');
-        $files = $_FILES;
-        $count = count($_FILES['userfile']['name']);
-        for($i=0; $i<$count; $i++)
-        {
-            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
-            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
-            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
-            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
-            $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
-            $this->upload->initialize($this->set_upload_options());
-            if($this->upload->do_upload() == False)
-            {
-                echo 'error';
-            }
-            else
-            {
-            	$data = $this->upload->data();
-            	$object1 = [
-            		'user_id' => $this->session->userdata('current_user')->user_id,
-            		'case_id' => $case->row()->case_id,
-            		'pic_name' => $data['file_name'],
-            		'type' => $this->input->get('case_type')
-            	];
-              	$mysql->insert('pics', $object1);
+		if ($_FILES != null) {
+		
+		
+			$this->load->library('upload');
+	        $files = $_FILES;
+	        $count = count($_FILES['userfile']['name']);
+	        for($i=0; $i<$count; $i++)
+	        {
+	            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+	            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+	            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+	            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+	            $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
+	            $this->upload->initialize($this->set_upload_options());
+	            if($this->upload->do_upload() == False)
+	            {
+	                echo 'error';
+	            }
+	            else
+	            {
+	            	$data = $this->upload->data();
+	            	$object1 = [
+	            		'user_id' => $this->session->userdata('current_user')->user_id,
+	            		'case_id' => $case->row()->case_id,
+	            		'pic_name' => $data['file_name'],
+	            		'type' => $this->input->get('case_type')
+	            	];
+	              	$mysql->insert('pics', $object1);
 
 
-            }
+	            }
+	        }
         }
 
 		$this->index();	
 	}
+
+	// public function fakta_form(){
+	// 	$mysql = $this->load->database('default', true);
+	// 	$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+	// 	$fk = $mysql->where('case_id', $case->row()->case_id)->get('fk');
+
+	// 	$mysql->where('type', 'fk');
+	// 	$pic = $mysql->where('case_id', $case->row()->case_id)->get('pics');
+	// 	$data = [
+	// 		'case' => $case->row(),
+	// 		'fk' => $fk,
+	// 		'pic' => $pic,
+	// 		'content' => 'case_details/fakta_form'
+	// 	];
+	// 	$this->load->view('layouts/admin', $data, FALSE);
+	// }
+	
+	// public function fakta_process(){
+	// 	$mysql = $this->load->database('default', true);
+	// 	$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
+
+	// 	if ($this->input->post('submit')) {
+	// 		$status = 'lengkap';
+	// 	}else{
+	// 		$status = 'draf';
+	// 	}
+
+	// 	$object = [
+	// 		'fk_content' => $this->input->post('content'),
+	// 		'fk_status' => $status,
+	// 		'user_id' => $this->session->userdata('current_user')->user_id,
+	// 		'case_id' => $case->row()->case_id,
+	// 	];
+
+	// 	$check = $mysql->where('case_id', $case->row()->case_id)->get('fk');
+	// 	if ($check->num_rows() > 0) {
+	// 		$mysql->update('fk', $object);
+	// 	}else{
+	// 		$mysql->insert('fk', $object);
+	// 	}
+
+	// 	$this->load->library('upload');
+ //        $files = $_FILES;
+ //        $count = count($_FILES['userfile']['name']);
+ //        for($i=0; $i<$count; $i++)
+ //        {
+ //            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+ //            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+ //            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+ //            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+ //            $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
+ //            $this->upload->initialize($this->set_upload_options());
+ //            if($this->upload->do_upload() == False)
+ //            {
+ //                echo 'error';
+ //            }
+ //            else
+ //            {
+ //            	$data = $this->upload->data();
+ //            	$object1 = [
+ //            		'user_id' => $this->session->userdata('current_user')->user_id,
+ //            		'case_id' => $case->row()->case_id,
+ //            		'pic_name' => $data['file_name'],
+ //            		'type' => $this->input->get('case_type')
+ //            	];
+ //              	$mysql->insert('pics', $object1);
+
+
+ //            }
+ //        }
+
+	// 	$this->index();	
+	// }
 
 	public function fakta_form(){
 		$mysql = $this->load->database('default', true);
@@ -455,6 +608,7 @@ class Case_details extends CI_Controller {
 	}
 	
 	public function fakta_process(){
+
 		$mysql = $this->load->database('default', true);
 		$case = $mysql->where('ind_akaun', $this->input->get('account'))->get('cases');
 
@@ -478,34 +632,38 @@ class Case_details extends CI_Controller {
 			$mysql->insert('fk', $object);
 		}
 
-		$this->load->library('upload');
-        $files = $_FILES;
-        $count = count($_FILES['userfile']['name']);
-        for($i=0; $i<$count; $i++)
-        {
-            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
-            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
-            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
-            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
-            $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
-            $this->upload->initialize($this->set_upload_options());
-            if($this->upload->do_upload() == False)
-            {
-                echo 'error';
-            }
-            else
-            {
-            	$data = $this->upload->data();
-            	$object1 = [
-            		'user_id' => $this->session->userdata('current_user')->user_id,
-            		'case_id' => $case->row()->case_id,
-            		'pic_name' => $data['file_name'],
-            		'type' => $this->input->get('case_type')
-            	];
-              	$mysql->insert('pics', $object1);
+		if ($_FILES != null) {
+		
+		
+			$this->load->library('upload');
+	        $files = $_FILES;
+	        $count = count($_FILES['userfile']['name']);
+	        for($i=0; $i<$count; $i++)
+	        {
+	            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+	            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+	            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+	            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+	            $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
+	            $this->upload->initialize($this->set_upload_options());
+	            if($this->upload->do_upload() == False)
+	            {
+	                echo 'error';
+	            }
+	            else
+	            {
+	            	$data = $this->upload->data();
+	            	$object1 = [
+	            		'user_id' => $this->session->userdata('current_user')->user_id,
+	            		'case_id' => $case->row()->case_id,
+	            		'pic_name' => $data['file_name'],
+	            		'type' => $this->input->get('case_type')
+	            	];
+	              	$mysql->insert('pics', $object1);
 
 
-            }
+	            }
+	        }
         }
 
 		$this->index();	

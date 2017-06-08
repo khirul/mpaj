@@ -30,8 +30,7 @@
 			
 			<div class="col-sm-3">
 				<img src="<?php echo base_url('assets/uploads/'. $p->pic_name) ?>" class="img-responsive" alt="" />
-				<a href="<?php echo base_url('case_details/delete_file?id='. $p->pic_id. '&account=' . $case->ind_akaun) ?>">padam</a>
-				<br />
+				<a class="btn btn-danger btn-sm" href="<?php echo base_url('case_details/delete_file?id='. $p->pic_id. '&account=' . $case->ind_akaun) ?>">padam</a>
 			</div><!-- /.col-sm-3 -->
 			
 			

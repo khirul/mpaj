@@ -20,15 +20,29 @@
 					</tr>
 					
 					<?php $bil = 0 ?>
+					
 					<?php foreach ($results->result() as $r): ?>
-						
+						<?php $bil2 = 0 ?>
+						<?php foreach ($existed->result() as $e): ?>
+							<?php if ($r->IND_AKAUN != $e->ind_akaun): ?>
+							
+								
+							<?php else: ?>
+								<?php  $bil2++?>
+							<?php endif ?>
+							
+						<?php endforeach ?>
+
+						<?php if ($bil2==0): ?>
 						<?php $bil++ ?>
 						<tr>
 							<td><?php echo $bil ?></td>
 							<td><?php echo $r->IND_PNAMA ?></td>
 							<td><?php echo $r->IND_KSLAH ?></td>
 							<td><a href="<?php echo base_url().'case_details?account='.$r->IND_AKAUN ?>" class="btn btn-info btn-sm">Buka kes</a></td>
-						</tr>	
+						</tr>
+						<?php endif ?>
+						
 					<?php endforeach ?>
 					
 				</table>
